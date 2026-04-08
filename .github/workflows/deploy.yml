@@ -1,8 +1,9 @@
-name: Deploy to GitHub Pages
+name: Deploy Portfolio
 
 on:
   push:
     branches: [main]
+  # Allows manual triggers from the Actions tab
   workflow_dispatch:
 
 permissions:
@@ -10,6 +11,7 @@ permissions:
   pages: write
   id-token: write
 
+# Prevent multiple deployments from running at the same time
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -18,14 +20,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+        env:
+          # Injecting the API key during build time if needed
+          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Upload production-ready assets
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
@@ -36,5 +50,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4

@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noa Danon | Workspace_v8.4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              workspace: 'var(--workspace-bg)',
+              canvas: 'var(--canvas-bg)',
+              sidebar: 'var(--sidebar-bg)',
+              mainText: 'var(--text-main)',
+              mutedText: 'var(--text-muted)',
+              puffyIndigo: 'var(--puffy-indigo)',
+              borderCol: 'var(--border-color)',
+              statusbar: 'var(--statusbar-bg)',
+              statusbarFg: 'var(--statusbar-fg)',
+              statusbarFgMuted: 'var(--statusbar-fg-muted)',
+              puffyShadow: 'var(--puffy-shadow)',
+              synKey: 'var(--syntax-keyword)',
+              synStr: 'var(--syntax-string)',
+              synNum: 'var(--syntax-number)',
+              synCom: 'var(--syntax-comment)',
+              synFn: 'var(--syntax-function)',
+              synTag: 'var(--syntax-tag)',
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Inter:wght@400;700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* Default: Light Mode */
+        --canvas-bg: #fdfdfe;
+        --sidebar-bg: #ffffff;
+        --workspace-bg: #f1f3f6;
+        --text-main: #111827;
+        --text-muted: #6b7280;
+        --border-color: rgba(0, 0, 0, 0.08);
+        --design-cyan: #22d3ee;
+        --puffy-indigo: #6366f1;
+        --puffy-shadow: rgba(0, 0, 0, 0.03);
+        --puffy-highlight: rgba(255, 255, 255, 0.9);
+        --statusbar-bg: #4f46e5;
+        --statusbar-fg: #ffffff;
+        --statusbar-fg-muted: rgba(255, 255, 255, 0.7);
+        
+        /* Syntax Colors - Light */
+        --syntax-keyword: #0033b3;
+        --syntax-string: #067d17;
+        --syntax-number: #1750eb;
+        --syntax-comment: #8c8c8c;
+        --syntax-function: #326a0e;
+        --syntax-tag: #000080;
+      }
+
+      .dark {
+        /* Dark Mode */
+        --canvas-bg: #1e1e2e;
+        --sidebar-bg: #181825;
+        --workspace-bg: #11111b;
+        --text-main: #cdd6f4;
+        --text-muted: #9399b2;
+        --border-color: rgba(255, 255, 255, 0.06);
+        --design-cyan: #89dceb;
+        --puffy-indigo: #cba6f7;
+        --puffy-shadow: rgba(0, 0, 0, 0.2);
+        --puffy-highlight: rgba(255, 255, 255, 0.02);
+        --statusbar-bg: #181825;
+        --statusbar-fg: #cba6f7;
+        --statusbar-fg-muted: rgba(203, 166, 247, 0.5);
+
+        /* Syntax Colors - Dark */
+        --syntax-keyword: #c678dd;
+        --syntax-string: #98c379;
+        --syntax-number: #d19a66;
+        --syntax-comment: #5c6370;
+        --syntax-function: #61afef;
+        --syntax-tag: #e06c75;
+      }
+
+      .studio {
+        /* Studio Mode (Original Warm Signature Palette) */
+        --canvas-bg: #ffffff;
+        --sidebar-bg: #fdfaf7;
+        --workspace-bg: #f8f2ed;
+        --text-main: #4a3728;
+        --text-muted: #a08c7d;
+        --border-color: rgba(74, 55, 40, 0.08);
+        --design-cyan: #f472b6;
+        --puffy-indigo: #ec4899;
+        --puffy-shadow: rgba(74, 55, 40, 0.06);
+        --puffy-highlight: rgba(255, 255, 255, 0.95);
+        --statusbar-bg: #f2e9e1;
+        --statusbar-fg: #4a3728;
+        --statusbar-fg-muted: rgba(74, 55, 40, 0.6);
+
+        /* Syntax Colors - Studio */
+        --syntax-keyword: #ec4899;
+        --syntax-string: #059669;
+        --syntax-number: #d97706;
+        --syntax-comment: #a08c7d;
+        --syntax-function: #2563eb;
+        --syntax-tag: #7c3aed;
+      }
+
+      .contrast {
+        /* High-Contrast Light Mode */
+        --canvas-bg: #ffffff;
+        --sidebar-bg: #ffffff;
+        --workspace-bg: #e2e6ed;
+        --text-main: #0a0a0f;
+        --text-muted: #444c5a;
+        --border-color: rgba(0, 0, 0, 0.18);
+        --design-cyan: #0891b2;
+        --puffy-indigo: #4338ca;
+        --puffy-shadow: rgba(0, 0, 0, 0.10);
+        --puffy-highlight: rgba(255, 255, 255, 1);
+        --statusbar-bg: #3730a3;
+        --statusbar-fg: #ffffff;
+        --statusbar-fg-muted: rgba(255, 255, 255, 0.8);
+
+        /* Syntax Colors - High Contrast */
+        --syntax-keyword: #1d0096;
+        --syntax-string: #0a5c00;
+        --syntax-number: #a03000;
+        --syntax-comment: #5a6270;
+        --syntax-function: #00509e;
+        --syntax-tag: #660099;
+      }
+
+      .contrast .soft-panel {
+        /* No background override — bg-statusbar and other bg-* classes must win */
+        box-shadow: 0 4px 24px -1px rgba(0,0,0,0.12);
+        border: 1px solid rgba(0,0,0,0.15);
+      }
+
+      .contrast .puffy-card {
+        box-shadow:
+          12px 12px 24px rgba(0,0,0,0.10),
+          -10px -10px 24px rgba(255,255,255,1),
+          inset 1px 1px 2px rgba(255,255,255,0.8);
+        border: 1px solid rgba(0,0,0,0.10);
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--workspace-bg);
+        color: var(--text-main);
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease;
+      }
+      
+      h1, h2, h3, .font-fredoka {
+        font-family: 'Fredoka', sans-serif;
+      }
+      .font-mono {
+        font-family: 'Space Grotesk', monospace;
+      }
+
+      .soft-panel {
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(24px);
+        border-radius: 1.75rem;
+        box-shadow: 0 4px 24px -1px var(--puffy-shadow);
+        border: 1px solid var(--border-color);
+        transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      }
+
+      .dark .soft-panel {
+        background: rgba(30, 30, 46, 0.75);
+      }
+
+      .studio .soft-panel {
+        background: rgba(253, 250, 247, 0.85);
+      }
+
+      .canvas-viewport {
+        position: relative;
+        overflow: hidden;
+        background: var(--canvas-bg);
+        border-radius: 2.25rem;
+        box-shadow: 
+          inset 0 0 120px rgba(0,0,0,0.02),
+          0 10px 40px -10px var(--puffy-shadow);
+        z-index: 10;
+        transition: background-color 0.4s ease, box-shadow 0.4s ease;
+      }
+
+      .splitter-v {
+        width: 4px;
+        height: 100%;
+        cursor: col-resize;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease;
+        border-radius: 2px;
+        position: relative;
+        z-index: 50;
+      }
+      .splitter-v:hover, .splitter-v:active {
+        background: rgba(99, 102, 241, 0.1);
+      }
+      .splitter-handle {
+        width: 2px;
+        height: 40px;
+        background: var(--border-color);
+        border-radius: 1px;
+        transition: background 0.2s ease;
+      }
+
+      /* Horizontal Splitter */
+      .splitter-h {
+        height: 4px;
+        width: 100%;
+        cursor: row-resize;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease;
+        border-radius: 2px;
+        position: relative;
+        z-index: 50;
+      }
+      .splitter-h:hover, .splitter-h:active {
+        background: rgba(99, 102, 241, 0.1);
+      }
+      .splitter-handle-h {
+        width: 40px;
+        height: 2px;
+        background: var(--border-color);
+        border-radius: 1px;
+        transition: background 0.2s ease;
+      }
+
+      .noise-texture::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        opacity: 0.03;
+        pointer-events: none;
+        background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+        z-index: 100;
+      }
+
+      .puffy-card {
+        background: var(--sidebar-bg);
+        border-radius: 2.5rem;
+        box-shadow: 
+          12px 12px 24px var(--puffy-shadow),
+          -10px -10px 24px var(--puffy-highlight),
+          inset 1px 1px 2px rgba(255, 255, 255, 0.5);
+        transition: background-color 0.4s ease, box-shadow 0.4s ease;
+      }
+
+      .bg-dot-grid {
+        background-image: radial-gradient(circle, var(--border-color) 2px, transparent 2px);
+        background-size: 56px 56px;
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 20px;
+      }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--border-color);
+        transition: .4s;
+        border-radius: 34px;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      input:checked + .slider {
+        background-color: var(--puffy-indigo);
+      }
+      input:checked + .slider:before {
+        transform: translateX(20px);
+      }
+
+      .selection-container {
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      
+      .selection-container:hover {
+        transform: translateY(-2px) scale(1.01);
+      }
+      
+      .selection-outline {
+        position: absolute;
+        inset: -12px;
+        border: 1px solid var(--design-cyan);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        z-index: 100;
+        border-radius: 0.5rem;
+      }
+      
+      .selection-outline .handle-tl,
+      .selection-outline .handle-tr,
+      .selection-outline .handle-bl,
+      .selection-outline .handle-br {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: white;
+        border: 1px solid var(--design-cyan);
+        border-radius: 1px;
+      }
+      
+      .handle-tl { top: -3px; left: -3px; }
+      .handle-tr { top: -3px; right: -3px; }
+      .handle-bl { bottom: -3px; left: -3px; }
+      .handle-br { bottom: -3px; right: -3px; }
+
+      .selection-container:hover .selection-outline {
+        opacity: 1;
+      }
+
+      /* Syntax Highlighting Base */
+      .syn-keyword { color: var(--syntax-keyword); font-weight: 600; }
+      .syn-string { color: var(--syntax-string); }
+      .syn-number { color: var(--syntax-number); }
+      .syn-comment { color: var(--syntax-comment); font-style: italic; }
+      .syn-function { color: var(--syntax-function); }
+      .syn-tag { color: var(--syntax-tag); }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.3",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+      }
+    }
+    </script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body class="noise-texture">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

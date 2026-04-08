@@ -5,7 +5,6 @@ import {
   Linkedin,
   Mail,
   Phone,
-  FileDown
 } from 'lucide-react';
 import { Project, Skill } from './types';
 
@@ -129,5 +128,4 @@ export const SOCIAL_LINKS = [
   { name: 'LinkedIn',  icon: <Linkedin />, url: 'https://www.linkedin.com/in/noadanon/' },
   { name: 'Email',     icon: <Mail />,     url: 'mailto:noadanon220@gmail.com' },
   { name: 'Phone',     icon: <Phone />,    url: 'tel:+972542392442' },
-  { name: 'Resume',    icon: <FileDown />, url: '/noa-danon-resume.pdf' },
 ];

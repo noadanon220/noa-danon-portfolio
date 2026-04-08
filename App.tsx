@@ -55,7 +55,6 @@ import {
   Linkedin,
   Github,
   Phone,
-  FileDown
 } from 'lucide-react';
 
 // --- Type Definitions ---
@@ -1042,9 +1041,7 @@ const App: React.FC = () => {
                                     <a href="tel:+972542392442" className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-canvas border border-borderCol text-mainText font-bold text-sm hover:bg-mainText/5 transition-all shadow-sm">
                                       <Phone size={14} /> +972-54-239-2442
                                     </a>
-                                    <a href="/noa-danon-resume.pdf" download className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-emerald-500 text-white font-bold text-sm hover:opacity-90 transition-all shadow-lg">
-                                      <FileDown size={14} /> Download CV
-                                    </a>
+
                                   </div>
                                 </div>
 
